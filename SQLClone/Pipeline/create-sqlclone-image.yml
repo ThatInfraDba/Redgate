@@ -1,0 +1,300 @@
+trigger: none
+
+parameters:
+  - name: sqlCloneServerUrl
+    displayName: 'SQL Clone Server URL'
+    type: string
+    default: ' '
+  
+  - name: imageName
+    displayName: 'Image Name (REQUIRED)'
+    type: string
+    default: ' '
+  
+  - name: sourceType
+    displayName: 'Source Type (REQUIRED)'
+    type: string
+    default: 'DatabaseBackup'
+    values:
+      - DatabaseBackup
+      - LiveDatabase
+  
+  - name: backupFilePath
+    displayName: '[DatabaseBackup ONLY] Backup File Path'
+    type: string
+    default: ' '
+  
+  - name: sourceSqlServer
+    displayName: '[LiveDatabase ONLY] Source SQL Server Instance'
+    type: string
+    default: ''
+  
+  - name: sourceDatabaseName
+    displayName: '[LiveDatabase ONLY] Source Database Name'
+    type: string
+    default: ' '
+  
+  - name: imageLocation
+    displayName: 'Image Location - Network share path (REQUIRED)'
+    type: string
+    default: ''
+  
+  - name: sqlServerInstance
+    displayName: '[OPTIONAL] SQL Server Instance for modifications'
+    type: string
+    default: ' '
+
+variables:
+  - group: 'SQLCloneCredentials'  # Variable group containing SQLCloneUsername and SQLClonePassword
+  - name: moduleInstalled
+    value: false
+
+pool:
+  name: 'Default'
+  demands:
+    - agent.name -equals azureAgent
+
+stages:
+  - stage: CreateImage
+    displayName: 'Create SQL Clone Image'
+    jobs:
+      - job: CreateImageJob
+        displayName: 'Create Image from Source'
+        steps:
+          - checkout: self
+            displayName: 'Checkout Repository'
+          
+          - powershell: |
+              Write-Host "##[section]Validating Parameters..."
+              $hasErrors = $false
+              
+              # Validate required parameters
+              $imageName = "${{ parameters.imageName }}".Trim()
+              $imageLocation = "${{ parameters.imageLocation }}".Trim()
+              
+              if ([string]::IsNullOrWhiteSpace($imageName)) {
+                Write-Host "##vso[task.logissue type=error]Image Name is required"
+                $hasErrors = $true
+              }
+              
+              if ([string]::IsNullOrWhiteSpace($imageLocation)) {
+                Write-Host "##vso[task.logissue type=error]Image Location is required"
+                $hasErrors = $true
+              }
+              
+              # Validate source type specific parameters
+              if ("${{ parameters.sourceType }}" -eq "DatabaseBackup") {
+                Write-Host "Source Type: DatabaseBackup - Validating backup file path..."
+                $backupFilePath = "${{ parameters.backupFilePath }}".Trim()
+                if ([string]::IsNullOrWhiteSpace($backupFilePath)) {
+                  Write-Host "##vso[task.logissue type=error]Backup File Path is required when Source Type is DatabaseBackup"
+                  $hasErrors = $true
+                }
+              } elseif ("${{ parameters.sourceType }}" -eq "LiveDatabase") {
+                Write-Host "Source Type: LiveDatabase - Validating SQL Server and database name..."
+                $sourceSqlServer = "${{ parameters.sourceSqlServer }}".Trim()
+                $sourceDatabaseName = "${{ parameters.sourceDatabaseName }}".Trim()
+                
+                if ([string]::IsNullOrWhiteSpace($sourceSqlServer)) {
+                  Write-Host "##vso[task.logissue type=error]Source SQL Server is required when Source Type is LiveDatabase"
+                  $hasErrors = $true
+                }
+                if ([string]::IsNullOrWhiteSpace($sourceDatabaseName)) {
+                  Write-Host "##vso[task.logissue type=error]Source Database Name is required when Source Type is LiveDatabase"
+                  $hasErrors = $true
+                }
+              }
+              
+              if ($hasErrors) {
+                Write-Host "##vso[task.logissue type=error]Parameter validation failed. Please provide all required parameters."
+                Write-Host "##vso[task.complete result=Failed;]Stopping pipeline due to validation errors"
+                exit 1
+              }
+              
+              Write-Host "##[section]✓ Parameter validation passed"
+            displayName: 'Validate Parameters'
+            failOnStderr: true
+          
+          - powershell: |
+              Write-Host "Checking if RedGate.SqlClone.PowerShell module is installed..."
+              $module = Get-Module -ListAvailable -Name RedGate.SqlClone.PowerShell
+              
+              if ($module) {
+                Write-Host "##[section]Module is already installed (Version: $($module.Version))"
+                Write-Host "##vso[task.setvariable variable=moduleInstalled]true"
+                Import-Module RedGate.SqlClone.PowerShell -Force
+              } else {
+                Write-Host "##[warning]Module is not installed on the agent. Will install from repository..."
+                Write-Host "##vso[task.setvariable variable=moduleInstalled]false"
+              }
+            displayName: 'Check if SQL Clone PowerShell Module is Installed'
+            errorActionPreference: Continue
+          
+          - powershell: |
+              Write-Host "##[section]Installing SQL Clone PowerShell module from repository..."
+              $modulePath = "$(Build.SourcesDirectory)\Pipeline\RedGate.SqlClone.PowerShell"
+              
+              if (Test-Path $modulePath) {
+                Write-Host "Module path found: $modulePath"
+                
+                # Get PowerShell module paths
+                $psModulePath = $env:PSModulePath -split ';' | Select-Object -First 1
+                Write-Host "Target module path: $psModulePath"
+                
+                # Create RedGate.SqlClone.PowerShell directory if it doesn't exist
+                $targetPath = Join-Path $psModulePath "RedGate.SqlClone.PowerShell"
+                if (-not (Test-Path $targetPath)) {
+                  New-Item -ItemType Directory -Path $targetPath -Force | Out-Null
+                }
+                
+                # Copy module files
+                Write-Host "Copying module files to: $targetPath"
+                Copy-Item -Path "$modulePath\*" -Destination $targetPath -Recurse -Force
+                
+                # Import the module
+                Import-Module RedGate.SqlClone.PowerShell -Force
+                Write-Host "##[section]Module imported successfully"
+                
+                # Verify module is loaded
+                $loadedModule = Get-Module RedGate.SqlClone.PowerShell
+                if ($loadedModule) {
+                  Write-Host "##[section]Module verified: $($loadedModule.Name) (Version: $($loadedModule.Version))"
+                } else {
+                  Write-Host "##vso[task.logissue type=error]Failed to verify module import"
+                  exit 1
+                }
+              } else {
+                Write-Host "##vso[task.logissue type=error]Module path not found: $modulePath"
+                exit 1
+              }
+            displayName: 'Install SQL Clone Module from Repository'
+            condition: eq(variables.moduleInstalled, false)
+          
+          - powershell: |
+              Write-Host "##[section]Connecting to SQL Clone Server: ${{ parameters.sqlCloneServerUrl }}"
+              
+              try {
+                # Check if credentials are provided via variable group
+                $username = $env:SQLCLONE_USERNAME
+                $password = $env:SQLCLONE_PASSWORD
+                
+                Write-Host "##[debug]Credential Debug Info:"
+                Write-Host "##[debug]  Username is null/empty: $([string]::IsNullOrEmpty($username))"
+                Write-Host "##[debug]  Password is null/empty: $([string]::IsNullOrEmpty($password))"
+                Write-Host "##[debug]  Username length: $($username.Length)"
+                
+                if (-not [string]::IsNullOrEmpty($username) -and -not [string]::IsNullOrEmpty($password)) {
+                  Write-Host "##[section]Using credentials from variable group for SQL Clone connection"
+                  Write-Host "##[debug]  Connecting as user: $username"
+                  $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
+                  $credential = New-Object System.Management.Automation.PSCredential ($username, $securePassword)
+                  Connect-SqlClone -ServerUrl "${{ parameters.sqlCloneServerUrl }}" -Credential $credential
+                } else {
+                  Write-Host "##[section]Using current user credentials for SQL Clone connection"
+                  Write-Host "##[debug]Reason for fallback:"
+                  if ([string]::IsNullOrEmpty($username)) {
+                    Write-Host "##[debug]  - Username is null or empty"
+                  }
+                  if ([string]::IsNullOrEmpty($password)) {
+                    Write-Host "##[debug]  - Password is null or empty"
+                  }
+                  Connect-SqlClone -ServerUrl "${{ parameters.sqlCloneServerUrl }}"
+                }
+                
+                Write-Host "##[section]Successfully connected to SQL Clone Server"
+              } catch {
+                Write-Host "##vso[task.logissue type=error]Failed to connect to SQL Clone Server: $_"
+                exit 1
+              }
+              
+              Write-Host ""
+              Write-Host "##[section]Creating SQL Clone Image: ${{ parameters.imageName }}"
+              Write-Host "Source Type: ${{ parameters.sourceType }}"
+              Write-Host "Image Location: ${{ parameters.imageLocation }}"
+              
+              try {
+                # Get the image location (this should be a registered image location in SQL Clone)
+                $imageLocation = Get-SqlCloneImageLocation -Path "${{ parameters.imageLocation }}"
+                
+                if (-not $imageLocation) {
+                  Write-Host "##vso[task.logissue type=error]Image location not found: ${{ parameters.imageLocation }}"
+                  exit 1
+                }
+                
+                Write-Host "Image location found: $($imageLocation.Path)"
+                
+                # Create the image based on source type
+                if ("${{ parameters.sourceType }}" -eq "DatabaseBackup") {
+                  Write-Host "##[section]Creating image from database backup..."
+                  Write-Host "Backup File Path: ${{ parameters.backupFilePath }}"
+                  
+                  $imageOperation = New-SqlCloneImage `
+                    -Name "${{ parameters.imageName }}" `
+                    -BackupFileName "${{ parameters.backupFilePath }}" `
+                    -Destination $imageLocation
+                } else {
+                  Write-Host "##[section]Creating image from live database..."
+                  Write-Host "Source SQL Server: ${{ parameters.sourceSqlServer }}"
+                  Write-Host "Source Database Name: ${{ parameters.sourceDatabaseName }}"
+                  
+                  # Parse SQL Server instance name (format: MACHINE\INSTANCE or just MACHINE)
+                  $serverParts = "${{ parameters.sourceSqlServer }}" -split '\\'
+                  $machineName = $serverParts[0]
+                  $instanceName = if ($serverParts.Length -gt 1) { $serverParts[1] } else { "MSSQLSERVER" }
+                  
+                  Write-Host "##[debug]Machine Name: $machineName"
+                  Write-Host "##[debug]Instance Name: $instanceName"
+                  
+                  # Get the SQL Server instance
+                  $sqlServerInstance = Get-SqlCloneSqlServerInstance -MachineName $machineName -InstanceName $instanceName
+                  
+                  if (-not $sqlServerInstance) {
+                    Write-Host "##vso[task.logissue type=error]SQL Server instance not found or not registered: ${{ parameters.sourceSqlServer }}"
+                    exit 1
+                  }
+                  
+                  Write-Host "SQL Server instance found: $($sqlServerInstance.ServerAddress)"
+                  
+                  $imageOperation = New-SqlCloneImage `
+                    -Name "${{ parameters.imageName }}" `
+                    -SqlServerInstance $sqlServerInstance `
+                    -DatabaseName "${{ parameters.sourceDatabaseName }}" `
+                    -Destination $imageLocation
+                }
+                
+                # Wait for the image creation to complete
+                Write-Host "##[section]Waiting for image creation to complete..."
+                $image = Wait-SqlCloneOperation -Operation $imageOperation
+                
+                Write-Host "##[section]Image created successfully!"
+                Write-Host "Image ID: $($image.Id)"
+                Write-Host "Image Name: $($image.Name)"
+                Write-Host "Image Location: $($image.Location.Path)"
+                Write-Host "Image Size: $($image.SizeInBytes / 1GB) GB"
+                
+                # Set output variable for use in subsequent stages/jobs
+                Write-Host "##vso[task.setvariable variable=imageId;isOutput=true]$($image.Id)"
+                Write-Host "##vso[task.setvariable variable=imageName;isOutput=true]$($image.Name)"
+                
+              } catch {
+                Write-Host "##vso[task.logissue type=error]Failed to create image: $_"
+                Write-Host "##vso[task.logissue type=error]Stack Trace: $($_.ScriptStackTrace)"
+                exit 1
+              }
+            displayName: 'Connect to SQL Clone and Create Image'
+            name: CreateImage
+            env:
+              SQLCLONE_USERNAME: $(SQLCloneUsername)
+              SQLCLONE_PASSWORD: $(SQLClonePassword)
+          
+          - powershell: |
+              Write-Host "##[section]Listing all images..."
+              try {
+                $images = Get-SqlCloneImage
+                $images | ForEach-Object {
+                  Write-Host "  - $($_.Name) (ID: $($_.Id))"
+                }
+              } catch {
+                Write-Host "##vso[task.logissue type=warning]Failed to list images: $_"
+              }
+            displayName: 'List All Images (Verification)'

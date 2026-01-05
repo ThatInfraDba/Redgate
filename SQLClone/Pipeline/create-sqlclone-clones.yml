@@ -1,0 +1,343 @@
+trigger: none
+
+parameters:
+  - name: sqlCloneServerUrl
+    displayName: 'SQL Clone Server URL'
+    type: string
+    default: ' '
+  
+  - name: imageName
+    displayName: 'Image Name (REQUIRED)'
+    type: string
+    default: ' '
+  
+  - name: numberOfClones
+    displayName: 'Number of Clones to Create'
+    type: number
+    default: 1
+    values:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+  
+  - name: cloneNamePrefix
+    displayName: 'Clone Name Prefix (REQUIRED - will append numbers: prefix-1, prefix-2, etc.)'
+    type: string
+    default: ' '
+  
+  - name: targetSqlServer
+    displayName: 'Target SQL Server Instance (REQUIRED)'
+    type: string
+    default: ' '
+  
+  - name: deleteExistingClones
+    displayName: 'Delete Existing Clones with Same Names'
+    type: boolean
+    default: false
+
+variables:
+  - group: 'SQLCloneCredentials'  # Variable group containing SQLCloneUsername and SQLClonePassword
+  - name: moduleInstalled
+    value: false
+
+pool:
+  name: 'Default'
+  demands:
+    - agent.name -equals azureAgent
+
+stages:
+  - stage: CreateClones
+    displayName: 'Create SQL Clone Clones'
+    jobs:
+      - job: CreateClonesJob
+        displayName: 'Create Multiple Clones'
+        steps:
+          - checkout: self
+            displayName: 'Checkout Repository'
+          
+          - powershell: |
+              Write-Host "Checking if RedGate.SqlClone.PowerShell module is installed..."
+              $module = Get-Module -ListAvailable -Name RedGate.SqlClone.PowerShell
+              
+              if ($module) {
+                Write-Host "##[section]Module is already installed (Version: $($module.Version))"
+                Write-Host "##vso[task.setvariable variable=moduleInstalled]true"
+                Import-Module RedGate.SqlClone.PowerShell -Force
+              } else {
+                Write-Host "##[warning]Module is not installed on the agent. Will install from repository..."
+                Write-Host "##vso[task.setvariable variable=moduleInstalled]false"
+              }
+            displayName: 'Check if SQL Clone PowerShell Module is Installed'
+            errorActionPreference: Continue
+          
+          - powershell: |
+              Write-Host "##[section]Installing SQL Clone PowerShell module from repository..."
+              $modulePath = "$(Build.SourcesDirectory)\Pipeline\RedGate.SqlClone.PowerShell"
+              
+              if (Test-Path $modulePath) {
+                Write-Host "Module path found: $modulePath"
+                
+                # Get PowerShell module paths
+                $psModulePath = $env:PSModulePath -split ';' | Select-Object -First 1
+                Write-Host "Target module path: $psModulePath"
+                
+                # Create RedGate.SqlClone.PowerShell directory if it doesn't exist
+                $targetPath = Join-Path $psModulePath "RedGate.SqlClone.PowerShell"
+                if (-not (Test-Path $targetPath)) {
+                  New-Item -ItemType Directory -Path $targetPath -Force | Out-Null
+                }
+                
+                # Copy module files
+                Write-Host "Copying module files to: $targetPath"
+                Copy-Item -Path "$modulePath\*" -Destination $targetPath -Recurse -Force
+                
+                # Import the module
+                Import-Module RedGate.SqlClone.PowerShell -Force
+                Write-Host "##[section]Module imported successfully"
+                
+                # Verify module is loaded
+                $loadedModule = Get-Module RedGate.SqlClone.PowerShell
+                if ($loadedModule) {
+                  Write-Host "##[section]Module verified: $($loadedModule.Name) (Version: $($loadedModule.Version))"
+                } else {
+                  Write-Host "##vso[task.logissue type=error]Failed to verify module import"
+                  exit 1
+                }
+              } else {
+                Write-Host "##vso[task.logissue type=error]Module path not found: $modulePath"
+                exit 1
+              }
+            displayName: 'Install SQL Clone Module from Repository'
+            condition: eq(variables.moduleInstalled, false)
+          
+          - powershell: |
+              Write-Host "##[section]Connecting to SQL Clone Server: ${{ parameters.sqlCloneServerUrl }}"
+              
+              try {
+                # Check if credentials are provided via variable group
+                $username = $env:SQLCLONE_USERNAME
+                $password = $env:SQLCLONE_PASSWORD
+                
+                if (-not [string]::IsNullOrEmpty($username) -and -not [string]::IsNullOrEmpty($password)) {
+                  Write-Host "##[section]Using credentials from variable group"
+                  $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
+                  $credential = New-Object System.Management.Automation.PSCredential ($username, $securePassword)
+                  Connect-SqlClone -ServerUrl "${{ parameters.sqlCloneServerUrl }}" -Credential $credential
+                } else {
+                  Write-Host "##[section]Using current user credentials"
+                  Connect-SqlClone -ServerUrl "${{ parameters.sqlCloneServerUrl }}"
+                }
+                
+                Write-Host "##[section]Successfully connected to SQL Clone Server"
+              } catch {
+                Write-Host "##vso[task.logissue type=error]Failed to connect to SQL Clone Server: $_"
+                exit 1
+              }
+              
+              Write-Host ""
+              Write-Host "##[section]Validating Parameters and Resources..."
+              
+              # Validate image exists
+              Write-Host "Checking image: ${{ parameters.imageName }}"
+              try {
+                $image = Get-SqlCloneImage -Name "${{ parameters.imageName }}"
+                
+                if (-not $image) {
+                  Write-Host "##vso[task.logissue type=error]Image not found: ${{ parameters.imageName }}"
+                  Write-Host "Available images:"
+                  Get-SqlCloneImage | ForEach-Object { Write-Host "  - $($_.Name)" }
+                  exit 1
+                }
+                
+                Write-Host "✓ Image found: $($image.Name) ($($image.SizeInBytes / 1GB) GB)"
+              } catch {
+                Write-Host "##vso[task.logissue type=error]Failed to validate image: $_"
+                exit 1
+              }
+              
+              # Parse and validate target SQL Server
+              Write-Host "Checking target SQL Server: ${{ parameters.targetSqlServer }}"
+              try {
+                $serverParts = "${{ parameters.targetSqlServer }}" -split '\\'
+                $machineName = $serverParts[0]
+                $instanceName = if ($serverParts.Length -gt 1) { $serverParts[1] } else { "MSSQLSERVER" }
+                
+                $sqlServer = Get-SqlCloneSqlServerInstance -MachineName $machineName -InstanceName $instanceName
+                
+                if (-not $sqlServer) {
+                  Write-Host "##vso[task.logissue type=error]SQL Server not found or not registered: ${{ parameters.targetSqlServer }}"
+                  Write-Host "Available SQL Servers:"
+                  Get-SqlCloneSqlServerInstance | ForEach-Object { Write-Host "  - $($_.ServerAddress)" }
+                  exit 1
+                }
+                
+                Write-Host "✓ SQL Server found: $($sqlServer.ServerAddress)"
+              } catch {
+                Write-Host "##vso[task.logissue type=error]Failed to validate SQL Server: $_"
+                exit 1
+              }
+              
+              Write-Host ""
+              
+              # Delete existing clones if requested
+              $deleteExisting = [System.Convert]::ToBoolean("${{ parameters.deleteExistingClones }}")
+              
+              if ($deleteExisting) {
+                Write-Host "##[section]Checking for existing clones to delete..."
+                $prefix = "${{ parameters.cloneNamePrefix }}"
+                $numberOfClones = ${{ parameters.numberOfClones }}
+                
+                try {
+                  $allClones = Get-SqlClone -Location $sqlServer
+                  
+                  $deletedCount = 0
+                  for ($i = 1; $i -le $numberOfClones; $i++) {
+                    $cloneName = "$prefix-$i"
+                    $existingClone = $allClones | Where-Object { $_.Name -eq $cloneName }
+                    
+                    if ($existingClone) {
+                      Write-Host "##[warning]Deleting existing clone: $cloneName"
+                      try {
+                        $removeOp = Remove-SqlClone -Clone $existingClone
+                        Wait-SqlCloneOperation -Operation $removeOp | Out-Null
+                        Write-Host "  ✓ Deleted: $cloneName"
+                        $deletedCount++
+                      } catch {
+                        Write-Host "##vso[task.logissue type=warning]Failed to delete clone $cloneName : $_"
+                      }
+                    }
+                  }
+                  
+                  if ($deletedCount -gt 0) {
+                    Write-Host "Deleted $deletedCount existing clone(s)"
+                  } else {
+                    Write-Host "No existing clones found to delete"
+                  }
+                  Write-Host ""
+                  
+                } catch {
+                  Write-Host "##vso[task.logissue type=warning]Error during clone deletion: $_"
+                }
+              }
+              
+              # Create clones
+              Write-Host "##[section]Creating ${{ parameters.numberOfClones }} Clone(s)"
+              Write-Host "Image: ${{ parameters.imageName }}"
+              Write-Host "Clone Prefix: ${{ parameters.cloneNamePrefix }}"
+              Write-Host "Target Server: ${{ parameters.targetSqlServer }}"
+              Write-Host ""
+              
+              try {
+                $numberOfClones = ${{ parameters.numberOfClones }}
+                $prefix = "${{ parameters.cloneNamePrefix }}"
+                
+                # Store operations for parallel tracking
+                $operations = @()
+                
+                # Create each clone
+                for ($i = 1; $i -le $numberOfClones; $i++) {
+                  $cloneName = "$prefix-$i"
+                  
+                  Write-Host "##[group]Creating clone $i of $numberOfClones : $cloneName"
+                  
+                  try {
+                    $cloneOperation = New-SqlClone `
+                      -Name $cloneName `
+                      -Image $image `
+                      -Location $sqlServer
+                    
+                    Write-Host "  Clone operation started for: $cloneName"
+                    $operations += @{
+                      Name = $cloneName
+                      Operation = $cloneOperation
+                      Number = $i
+                    }
+                    
+                  } catch {
+                    Write-Host "##vso[task.logissue type=error]Failed to start clone creation for $cloneName : $_"
+                  }
+                  
+                  Write-Host "##[endgroup]"
+                }
+                
+                # Wait for all operations to complete
+                Write-Host ""
+                Write-Host "##[section]Waiting for all clone operations to complete..."
+                Write-Host ""
+                
+                $successCount = 0
+                $failCount = 0
+                
+                foreach ($op in $operations) {
+                  Write-Host "##[group]Waiting for: $($op.Name)"
+                  
+                  try {
+                    $clone = Wait-SqlCloneOperation -Operation $op.Operation
+                    
+                    Write-Host "##[section]✓ Clone created successfully!"
+                    Write-Host "  Clone Name: $($clone.Name)"
+                    Write-Host "  Clone ID: $($clone.Id)"
+                    Write-Host "  Server: $($clone.LocationServerAddress)"
+                    Write-Host "  Image: $($clone.ImageName)"
+                    
+                    $successCount++
+                    
+                    # Set output variables for each clone
+                    Write-Host "##vso[task.setvariable variable=clone$($op.Number)Id;isOutput=true]$($clone.Id)"
+                    Write-Host "##vso[task.setvariable variable=clone$($op.Number)Name;isOutput=true]$($clone.Name)"
+                    
+                  } catch {
+                    Write-Host "##vso[task.logissue type=error]Failed to create clone $($op.Name): $_"
+                    $failCount++
+                  }
+                  
+                  Write-Host "##[endgroup]"
+                }
+                
+                # Summary
+                Write-Host ""
+                Write-Host "##[section]==============================================="
+                Write-Host "##[section]Clone Creation Summary"
+                Write-Host "##[section]==============================================="
+                Write-Host "##[section]Total Requested: $numberOfClones"
+                Write-Host "##[section]Successfully Created: $successCount"
+                if ($failCount -gt 0) {
+                  Write-Host "##vso[task.logissue type=warning]Failed: $failCount"
+                }
+                Write-Host "##[section]==============================================="
+                
+                # List all clones for verification
+                Write-Host ""
+                Write-Host "##[section]All clones on target server:"
+                try {
+                  $allClones = Get-SqlClone -Location $sqlServer
+                  Write-Host "Total clones: $($allClones.Count)"
+                  $allClones | ForEach-Object {
+                    Write-Host "  - $($_.Name) (Image: $($_.ImageName))"
+                  }
+                } catch {
+                  Write-Host "##vso[task.logissue type=warning]Failed to list clones: $_"
+                }
+                
+                if ($failCount -gt 0 -and $successCount -eq 0) {
+                  Write-Host "##vso[task.logissue type=error]All clone operations failed"
+                  exit 1
+                }
+                
+              } catch {
+                Write-Host "##vso[task.logissue type=error]Failed during clone creation process: $_"
+                Write-Host "##vso[task.logissue type=error]Stack Trace: $($_.ScriptStackTrace)"
+                exit 1
+              }
+            displayName: 'Connect to SQL Clone and Create Clones'
+            name: CreateClones
+            env:
+              SQLCLONE_USERNAME: $(SQLCloneUsername)
+              SQLCLONE_PASSWORD: $(SQLClonePassword)

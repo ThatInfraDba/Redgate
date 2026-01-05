@@ -1,0 +1,3112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<helpItems schema="maml" xmlns="http://msh">
+  <!-- Cmdlet: Connect-SqlClone -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Connect-SqlClone</command:name>
+      <command:verb>Connect</command:verb>
+      <command:noun>SqlClone</command:noun>
+      <maml:description>
+        <maml:para>Initiates a connection with a SQL Clone Server.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Connect-SqlClone cmdlet attempts to initate a connection with a SQL Clone Server. If no credential is specified then the current user's credentials will be used.</maml:para>
+      <maml:para>Should be called before any other SQL Clone cmdlets.</maml:para>
+      <maml:para>This cmdlet will return an error if the version of the module being used is out of date.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Connect-SqlClone</maml:name>
+        <!-- Parameter: ServerUrl -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+          <maml:name>ServerUrl</maml:name>
+          <maml:description>
+            <maml:para>The address of the SQL Clone Server to connect to.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Credential -->
+        <command:parameter required="false" globbing="false" pipelineInput="true (ByValue)" position="1">
+          <maml:name>Credential</maml:name>
+          <maml:description>
+            <maml:para>The credential used to connect to the SQL Clone Server. If no credential is specified then the current user's credentials will be used.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">PSCredential</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Management.Automation.PSCredential</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: ServerUrl -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+        <maml:name>ServerUrl</maml:name>
+        <maml:description>
+          <maml:para>The address of the SQL Clone Server to connect to.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Credential -->
+      <command:parameter required="false" globbing="false" pipelineInput="true (ByValue)" position="1">
+        <maml:name>Credential</maml:name>
+        <maml:description>
+          <maml:para>The credential used to connect to the SQL Clone Server. If no credential is specified then the current user's credentials will be used.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">PSCredential</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.PSCredential</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>The address of the SQL Clone Server to connect to.</maml:para>
+        </maml:description>
+      </command:inputType>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.Management.Automation.PSCredential</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>The credential used to connect to the SQL Clone Server. If no credential is specified then the current user's credentials will be used.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <!-- OutputType: None -->
+      <command:returnValue>
+        <dev:type>
+          <maml:name>None</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>Connect-SqlClone -Server 'http://sql-clone.example.com:14145'</dev:code>
+        <dev:remarks>
+          <maml:para>This command attempts to intiate a connection to the SQL Clone Server hosted at http://sql-clone.example.com</maml:para>
+          <maml:para>Since no credential is specified the current user's credentials will be used.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 2  ----------</maml:title>
+        <dev:code>$Credential = Get-Credential
+Connect-SqlClone -Server 'http://sql-clone.example.com:14145' -Credential $Credential</dev:code>
+        <dev:remarks>
+          <maml:para>This example shows a dialog to enter credentials and then uses them to initiate a connection to the SQL Clone Server at http://sql-clone.example.com</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Get-SqlClone -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Get-SqlClone</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>SqlClone</command:noun>
+      <maml:description>
+        <maml:para>Gets clone details from a SQL Clone Server.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Get-SqlClone cmdlet gets details of clones from a SQL Clone Server.</maml:para>
+      <maml:para>Without parameters, this cmdlet gets details of all clones. You can specify a particular clone by name, SQL Server instance and/or parent image.</maml:para>
+      <maml:para>This cmdlet returns a CloneResource which can be passed to the Remove-SqlClone cmdlet to delete a clone.</maml:para>
+      <maml:para>Connect-SqlClone must be called before this cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Get-SqlClone</maml:name>
+        <!-- Parameter: Name -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="0">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Specifies the name of the clone. Wildcards are permitted.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Location -->
+        <command:parameter required="false" globbing="false" pipelineInput="true (ByValue)" position="1">
+          <maml:name>Location</maml:name>
+          <maml:description>
+            <maml:para>Specifies the server instance that the clone is on. If no location is specified then details of clones on all server instances will be returned.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">SqlServerInstanceResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.SqlServerInstanceResource</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Image -->
+        <command:parameter required="false" globbing="false" pipelineInput="true (ByValue)" position="2">
+          <maml:name>Image</maml:name>
+          <maml:description>
+            <maml:para>Specifies the image that the clone was created from. If no image is specified then details of clones for all parent images will be returned.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">ImageResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageResource</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Name -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="0">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Specifies the name of the clone. Wildcards are permitted.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Location -->
+      <command:parameter required="false" globbing="false" pipelineInput="true (ByValue)" position="1">
+        <maml:name>Location</maml:name>
+        <maml:description>
+          <maml:para>Specifies the server instance that the clone is on. If no location is specified then details of clones on all server instances will be returned.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">SqlServerInstanceResource</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.SqlServerInstanceResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Image -->
+      <command:parameter required="false" globbing="false" pipelineInput="true (ByValue)" position="2">
+        <maml:name>Image</maml:name>
+        <maml:description>
+          <maml:para>Specifies the image that the clone was created from. If no image is specified then details of clones for all parent images will be returned.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">ImageResource</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.SqlServerInstanceResource</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the server instance that the clone is on. If no location is specified then details of clones on all server instances will be returned.</maml:para>
+        </maml:description>
+      </command:inputType>
+      <command:inputType>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageResource</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the image that the clone was created from. If no image is specified then details of clones for all parent images will be returned.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <!-- OutputType: CloneResource -->
+      <command:returnValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.CloneResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>Get-SqlClone</dev:code>
+        <dev:remarks>
+          <maml:para>This command gets details of all clones from a SQL Clone Server.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 2  ----------</maml:title>
+        <dev:code>$SqlServerInstance = Get-SqlCloneSqlServerInstance -MachineName TESTMACHINE -InstanceName SQL2014
+Get-SqlClone -Name 'ClonedDatabase' -Location $SqlServerInstance</dev:code>
+        <dev:remarks>
+          <maml:para>This example gets details of a specific clone named 'CloneDatabase' on 'TESTMACHINE/SQL2014'.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 3  ----------</maml:title>
+        <dev:code>$ParentImage = Get-SqlCloneImage -Name 'Example-Image'
+Get-SqlClone -Image $ParentImage</dev:code>
+        <dev:remarks>
+          <maml:para>This example gets details of all clones based on the image 'Example-Image'.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: New-SqlClone -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>New-SqlClone</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>SqlClone</command:noun>
+      <maml:description>
+        <maml:para>Starts creating a clone from an image.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The New-SqlClone cmdlet starts creating a clone from an image and outputs details of the creation operation.</maml:para>
+      <maml:para>This cmdlet returns a OperationResource which can be passed to the Wait-SqlCloneOperation cmdlet.</maml:para>
+      <maml:para>Connect-SqlClone must be called before this cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>New-SqlClone</maml:name>
+        <!-- Parameter: Image -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+          <maml:name>Image</maml:name>
+          <maml:description>
+            <maml:para>Specifies the parent image that will be cloned. The Get-SqlCloneImage cmdlet can be used to get an ImageResource.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">ImageResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageResource</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Name -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="1">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Specifies the database name of the clone. This needs to be a unique database name within the specified SQL Server instance. This value has a maximum length of 128 characters.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Location -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="2">
+          <maml:name>Location</maml:name>
+          <maml:description>
+            <maml:para>Specifies the SQL Server instance that the clone will be created on. The Get-SqlCloneSqlServerInstance cmdlet can be used to get a SqlServerInstanceResource.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">SqlServerInstanceResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.SqlServerInstanceResource</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: OverrideStorageLocation -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>OverrideStorageLocation</maml:name>
+          <maml:description>
+            <maml:para>Specifies where the clone data files will be physically stored on disk. This path is relative to the machine on which the clone is being created.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Template -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Template</maml:name>
+          <maml:description>
+            <maml:para>Specifies the clone template that will be run during clone creation (check the parent image to see what templates are available). Accepts a CloneTemplateResource (obtained using the Get-SqlCloneTemplate cmdlet) or a string (the template's name).</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">PSObject</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Management.Automation.PSObject</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Image -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+        <maml:name>Image</maml:name>
+        <maml:description>
+          <maml:para>Specifies the parent image that will be cloned. The Get-SqlCloneImage cmdlet can be used to get an ImageResource.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">ImageResource</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Name -->
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="1">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Specifies the database name of the clone. This needs to be a unique database name within the specified SQL Server instance. This value has a maximum length of 128 characters.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Location -->
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="2">
+        <maml:name>Location</maml:name>
+        <maml:description>
+          <maml:para>Specifies the SQL Server instance that the clone will be created on. The Get-SqlCloneSqlServerInstance cmdlet can be used to get a SqlServerInstanceResource.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">SqlServerInstanceResource</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.SqlServerInstanceResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: OverrideStorageLocation -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>OverrideStorageLocation</maml:name>
+        <maml:description>
+          <maml:para>Specifies where the clone data files will be physically stored on disk. This path is relative to the machine on which the clone is being created.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Template -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Template</maml:name>
+        <maml:description>
+          <maml:para>Specifies the clone template that will be run during clone creation (check the parent image to see what templates are available). Accepts a CloneTemplateResource (obtained using the Get-SqlCloneTemplate cmdlet) or a string (the template's name).</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">PSObject</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.PSObject</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageResource</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the parent image that will be cloned. The Get-SqlCloneImage cmdlet can be used to get an ImageResource.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <!-- OutputType: OperationResource -->
+      <command:returnValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.OperationResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$Image = Get-SqlCloneImage -Name 'AdventureWorks-20170106110745'
+$SqlServerInstance = Get-SqlCloneSqlServerInstance -MachineName WIN201601 -InstanceName SQL2014
+New-SqlClone -Name 'AdventureWorks-clone1' -Location $SqlServerInstance -Image $Image</dev:code>
+        <dev:remarks>
+          <maml:para>This example starts creating a new clone named 'AdventureWorks-clone1' on WIN201601\SQL2014 based on the image named 'AdventureWorks-20170106110745'.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 2  ----------</maml:title>
+        <dev:code>Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$Image = Get-SqlCloneImage -Name 'AdventureWorks-20170106110745'
+$SqlServerInstance = Get-SqlCloneSqlServerInstance -MachineName WIN201601 -InstanceName SQL2014
+$Image | New-SqlClone -Name 'AdventureWorks-clone1' -Location $SqlServerInstance | Wait-SqlCloneOperation</dev:code>
+        <dev:remarks>
+          <maml:para>This example uses the pipeline operator to create a new clone and waits for the creation to complete before returning.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 3  ----------</maml:title>
+        <dev:code>Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$Image = Get-SqlCloneImage -Name 'AdventureWorks-20170106110745'
+$SqlServerInstance = Get-SqlCloneSqlServerInstance -MachineName WIN201601 -InstanceName SQL2014
+New-SqlClone -Name 'AdventureWorks-clone1' -Location $SqlServerInstance -Image $Image -OverrideStorageLocation 'D:\Clones'</dev:code>
+        <dev:remarks>
+          <maml:para>This example creates a clone in the same way as example 1, but stores its files in a specified location. The supplied path is relative to the machine on which the clone is being created.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 4  ----------</maml:title>
+        <dev:code>Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$Image = Get-SqlCloneImage -Name 'AdventureWorks-20170106110745'
+$SqlServerInstance = Get-SqlCloneSqlServerInstance -MachineName WIN201601 -InstanceName SQL2014
+$Template = Get-SqlCloneTemplate -Image $Image -Name "modificationTemplate1"
+New-SqlClone -Name 'AdventureWorks-clone1' -Location $SqlServerInstance -Image $Image -Template $Template</dev:code>
+        <dev:remarks>
+          <maml:para>This example creates a clone in the same way as example 1 and modificationTemplate1 is run during clone creation.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 5  ----------</maml:title>
+        <dev:code>Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$Image = Get-SqlCloneImage -Name 'AdventureWorks-20170106110745'
+$SqlServerInstance = Get-SqlCloneSqlServerInstance -MachineName WIN201601 -InstanceName SQL2014
+New-SqlClone -Name 'AdventureWorks-clone1' -Location $SqlServerInstance -Image $Image -Template "modificationTemplate1"</dev:code>
+        <dev:remarks>
+          <maml:para>This example creates a clone in the same way as example 1 and modificationTemplate1 is run during clone creation.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Remove-SqlClone -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Remove-SqlClone</command:name>
+      <command:verb>Remove</command:verb>
+      <command:noun>SqlClone</command:noun>
+      <maml:description>
+        <maml:para>Starts deleting a clone.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Remove-SqlClone cmdlet starts deleting a clone and outputs details of the deletion operation.</maml:para>
+      <maml:para>This cmdlet returns a OperationResource which can be passed to the Wait-SqlCloneOperation cmdlet.</maml:para>
+      <maml:para>Connect-SqlClone must be called before this cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Remove-SqlClone</maml:name>
+        <!-- Parameter: Clone -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+          <maml:name>Clone</maml:name>
+          <maml:description>
+            <maml:para>Specifies the clone to delete. The Get-SqlClone cmdlet can be used to get a CloneResource.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">CloneResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.CloneResource</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Clone -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+        <maml:name>Clone</maml:name>
+        <maml:description>
+          <maml:para>Specifies the clone to delete. The Get-SqlClone cmdlet can be used to get a CloneResource.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">CloneResource</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.CloneResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.CloneResource</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the clone to delete. The Get-SqlClone cmdlet can be used to get a CloneResource.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <!-- OutputType: OperationResource -->
+      <command:returnValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.OperationResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>$SqlServerInstance = Get-SqlCloneSqlServerInstance -MachineName TESTMACHINE -InstanceName SQL2014
+$CloneToDelete = Get-SqlClone -Name 'CloneToDelete' -Location $SqlServerInstance
+Remove-SqlClone -Clone $CloneToDelete</dev:code>
+        <dev:remarks>
+          <maml:para>This example deletes the clone with the name 'CloneToDelete' on the SQL Server TESTMACHINE\SQL2014.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 2  ----------</maml:title>
+        <dev:code>Get-SqlClone -Name 'CloneToDelete' | Remove-SqlClone | Wait-SqlCloneOperation</dev:code>
+        <dev:remarks>
+          <maml:para>This example uses the pipeline to deletes an clones with the name 'CloneToDelete' and waits for the operation to finish before returning.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 3  ----------</maml:title>
+        <dev:code>Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$ClonesToDelete = Get-SqlClone -Name 'Dev-*'
+$ClonesToDelete | Remove-SqlClone | Wait-SqlCloneOperation</dev:code>
+        <dev:remarks>
+          <maml:para>This example deletes all clones with the name prefix 'Dev-' and waits for the operations to complete.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Rename-SqlClone -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Rename-SqlClone</command:name>
+      <command:verb>Rename</command:verb>
+      <command:noun>SqlClone</command:noun>
+      <maml:description>
+        <maml:para>Renames a clone.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Rename-SqlClone cmdlet starts renaming a clone and outputs details of the rename operation.</maml:para>
+      <maml:para>The clone will be placed into single-user mode while being renamed.</maml:para>
+      <maml:para>This cmdlet returns a OperationResource which can be passed to the Wait-SqlCloneOperation cmdlet.</maml:para>
+      <maml:para>Connect-SqlClone must be called before this cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Rename-SqlClone</maml:name>
+        <!-- Parameter: Clone -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+          <maml:name>Clone</maml:name>
+          <maml:description>
+            <maml:para>Specifies the clone to rename. The Get-SqlClone cmdlet can be used to get a CloneResource.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">CloneResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.CloneResource</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: NewName -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="1">
+          <maml:name>NewName</maml:name>
+          <maml:description>
+            <maml:para>Specifies the new name of the clone.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Clone -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+        <maml:name>Clone</maml:name>
+        <maml:description>
+          <maml:para>Specifies the clone to rename. The Get-SqlClone cmdlet can be used to get a CloneResource.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">CloneResource</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.CloneResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: NewName -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="1">
+        <maml:name>NewName</maml:name>
+        <maml:description>
+          <maml:para>Specifies the new name of the clone.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.CloneResource</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the clone to rename. The Get-SqlClone cmdlet can be used to get a CloneResource.</maml:para>
+        </maml:description>
+      </command:inputType>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the new name of the clone.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <!-- OutputType: OperationResource -->
+      <command:returnValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.OperationResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>$CloneToRename = Get-SqlClone -Name 'CloneToRename' 
+Rename-SqlClone -Clone $CloneToRename -NewName 'NewName' | Wait-SqlCloneOperation</dev:code>
+        <dev:remarks>
+          <maml:para>This example renames a clone with the name 'CloneToRename' to 'NewName'.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Reset-SqlClone -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Reset-SqlClone</command:name>
+      <command:verb>Reset</command:verb>
+      <command:noun>SqlClone</command:noun>
+      <maml:description>
+        <maml:para>Resets a clone to its initial state.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Reset-SqlClone cmdlet starts resetting a clone and outputs details of the reset operation.</maml:para>
+      <maml:para>This cmdlet returns a OperationResource which can be passed to the Wait-SqlCloneOperation cmdlet.</maml:para>
+      <maml:para>Connect-SqlClone must be called before this cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Reset-SqlClone</maml:name>
+        <!-- Parameter: Clone -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+          <maml:name>Clone</maml:name>
+          <maml:description>
+            <maml:para>Specifies the clone to reset. The Get-SqlClone cmdlet can be used to get a CloneResource.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">CloneResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.CloneResource</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Clone -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+        <maml:name>Clone</maml:name>
+        <maml:description>
+          <maml:para>Specifies the clone to reset. The Get-SqlClone cmdlet can be used to get a CloneResource.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">CloneResource</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.CloneResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.CloneResource</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the clone to reset. The Get-SqlClone cmdlet can be used to get a CloneResource.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <!-- OutputType: OperationResource -->
+      <command:returnValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.OperationResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>$SqlServerInstance = Get-SqlCloneSqlServerInstance -MachineName TESTMACHINE -InstanceName SQL2014
+$CloneToReset = Get-SqlClone -Name 'CloneToReset' -Location $SqlServerInstance
+Reset-SqlClone -Clone $CloneToReset</dev:code>
+        <dev:remarks>
+          <maml:para>This example resets the clone with the name 'CloneToReset' on the SQL Server TESTMACHINE\SQL2014.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 2  ----------</maml:title>
+        <dev:code>Get-SqlClone -Name 'CloneToReset' | Reset-SqlClone | Wait-SqlCloneOperation</dev:code>
+        <dev:remarks>
+          <maml:para>This example uses the pipeline to reset the clone named 'CloneToReset' and waits for the operation to finish before returning.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 3  ----------</maml:title>
+        <dev:code>Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$ClonesToReset = Get-SqlClone -Name 'Dev-*'
+$ClonesToReset | Reset-SqlClone | Wait-SqlCloneOperation</dev:code>
+        <dev:remarks>
+          <maml:para>This example resets all clones with the name prefix 'Dev-' and waits for the operations to complete.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Start-SqlCloneAgent -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Start-SqlCloneAgent</command:name>
+      <command:verb>Start</command:verb>
+      <command:noun>SqlCloneAgent</command:noun>
+      <maml:description>
+        <maml:para>Registers and starts a SQL Clone Agent, defaulting to the latest installed one.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Start-SqlCloneAgent cmdlet registers the newest installed SQL Clone Agent (or the one for the provided version) and starts the associated Windows service, setting it to Automatic startup.</maml:para>
+      <maml:para>This operation is idempotent as already running SQL Clone Agents will not be affected.</maml:para>
+      <maml:para>Requires administrator privileges.</maml:para>
+      <maml:para>This cmdlet will return an error if the SQL Clone Agent isn't found or if the associated service can't be started.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Start-SqlCloneAgent</maml:name>
+        <!-- Parameter: Version -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="0">
+          <maml:name>Version</maml:name>
+          <maml:description>
+            <maml:para>Specifies the version of the SQL Clone Agent to start. Defaults to newest one if not provided.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">Version</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Version</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Version -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="0">
+        <maml:name>Version</maml:name>
+        <maml:description>
+          <maml:para>Specifies the version of the SQL Clone Agent to start. Defaults to newest one if not provided.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">Version</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Version</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues>
+      <!-- OutputType: None -->
+      <command:returnValue>
+        <dev:type>
+          <maml:name>None</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>Start-SqlCloneAgent</dev:code>
+        <dev:remarks>
+          <maml:para>This command will start the newest installed SQL Clone Agent.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 2  ----------</maml:title>
+        <dev:code>Start-SqlCloneAgent -Version 4.5.12.12345</dev:code>
+        <dev:remarks>
+          <maml:para>This command will start the SQL Clone Agent with version 4.5.12.12345.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Get-SqlCloneImage -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Get-SqlCloneImage</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>SqlCloneImage</command:noun>
+      <maml:description>
+        <maml:para>Gets image details from a SQL Clone Server.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Get-SqlCloneImage cmdlet gets details of clone images from a SQL Clone Server.</maml:para>
+      <maml:para>Without parameters, this cmdlet gets details of all images. You can specify a particular image by name or use a wildcard filter.</maml:para>
+      <maml:para>This cmdlet returns a ImageResource which can be passed to the New-SqlClone cmdlet for creating a clone from the image.</maml:para>
+      <maml:para>Connect-SqlClone must be called before this cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Get-SqlCloneImage</maml:name>
+        <!-- Parameter: Name -->
+        <command:parameter required="false" globbing="false" pipelineInput="true (ByValue)" position="0">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>The name of the image. Wildcards are permitted. If no name is specified then details of all images will be returned.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Name -->
+      <command:parameter required="false" globbing="false" pipelineInput="true (ByValue)" position="0">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>The name of the image. Wildcards are permitted. If no name is specified then details of all images will be returned.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>The name of the image. Wildcards are permitted. If no name is specified then details of all images will be returned.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <!-- OutputType: ImageResource -->
+      <command:returnValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>Get-SqlCloneImage</dev:code>
+        <dev:remarks>
+          <maml:para>This command gets details of all images from a SQL Clone Server.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 2  ----------</maml:title>
+        <dev:code>Get-SqlCloneImage -Name 'FirstImage'</dev:code>
+        <dev:remarks>
+          <maml:para>This command gets details of an image named 'FirstImage' from a SQL Clone Server.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 3  ----------</maml:title>
+        <dev:code>Get-SqlCloneImage -Name 'AdventureWorks*'</dev:code>
+        <dev:remarks>
+          <maml:para>This command gets details of all images with the prefix 'AdventureWorks' from a SQL Clone Server.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: New-SqlCloneImage -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>New-SqlCloneImage</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>SqlCloneImage</command:noun>
+      <maml:description>
+        <maml:para>Starts creating a new image from either a live database or backup.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The New-SqlCloneImage cmdlet starts creating a new image from either a live database or backup and outputs details of the creation operation.</maml:para>
+      <maml:para>This cmdlet returns a OperationResource which can be passed to the Wait-SqlCloneOperation cmdlet.</maml:para>
+      <maml:para>Connect-SqlClone must be called before this cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: FromDatabase -->
+      <command:syntaxItem>
+        <maml:name>New-SqlCloneImage</maml:name>
+        <!-- Parameter: Name -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="0">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Specifies the name of the image.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: SqlServerInstance -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="1">
+          <maml:name>SqlServerInstance</maml:name>
+          <maml:description>
+            <maml:para>Specifies the SQL Server instance that the source database is on. The Get-SqlCloneSqlServerInstance cmdlet can be used to get a SqlServerInstanceResource.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">SqlServerInstanceResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.SqlServerInstanceResource</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: DatabaseName -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="2">
+          <maml:name>DatabaseName</maml:name>
+          <maml:description>
+            <maml:para>Specifies the name of the database to be used as the source for the image.</maml:para>
+            <maml:para>You can't use this parameter in addition to the BackupFileName parameters.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Destination -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="3">
+          <maml:name>Destination</maml:name>
+          <maml:description>
+            <maml:para>Specifies where the image will be stored. The Get-SqlCloneImageLocation cmdlet can be used to get an ImageLocationResource</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">ImageLocationResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageLocationResource</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: CompactImage -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>CompactImage</maml:name>
+          <maml:description>
+            <maml:para>Specifies if the image file should be compacted after modifications.</maml:para>
+            <maml:para>This feature requires the SQL Clone agent machine to be running on Windows 8 / Server 2012 or later.</maml:para>
+            <maml:para>Possible values: None, Compact</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">CompactImageResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.CompactImageResource</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Compact</command:parameterValue>
+          </command:parameterValueGroup>
+        </command:parameter>
+        <!-- Parameter: Modifications -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Modifications</maml:name>
+          <maml:description>
+            <maml:para>Specifies an ordered sequence of modifications to make to the image database while it is being created. SQL script modifications will run with limited privileges, as a temporary user &amp; login that has db_owner on the image database and VIEW ANY DEFINITION and VIEW SERVER STATE on the server. Masking modifications will be run by Data Masker for SQL Server.</maml:para>
+            <maml:para>See New-SqlCloneSqlScript.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">ModificationScriptResource[]</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.ModificationScriptResource[]</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Teams -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Teams</maml:name>
+          <maml:description>
+            <maml:para>Specifies Existing Teams that can access this image.</maml:para>
+            <maml:para>Any team with the `Include All Images` flag will have access to all images.</maml:para>
+            <maml:para>User must provide a team for the image if the current user doesn't have access to all images.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">TeamResource[]</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.TeamResource[]</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+      <!-- Parameter set: FromBackup -->
+      <command:syntaxItem>
+        <maml:name>New-SqlCloneImage</maml:name>
+        <!-- Parameter: Name -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="0">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Specifies the name of the image.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: SqlServerInstance -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="1">
+          <maml:name>SqlServerInstance</maml:name>
+          <maml:description>
+            <maml:para>Specifies the SQL Server instance that the source database is on. The Get-SqlCloneSqlServerInstance cmdlet can be used to get a SqlServerInstanceResource.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">SqlServerInstanceResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.SqlServerInstanceResource</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: BackupFileName -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="2">
+          <maml:name>BackupFileName</maml:name>
+          <maml:description>
+            <maml:para>Specifies the backup file path(s). These can be full and/or differential, but not a transaction log backup. If you have striped and/or differential backups, you should pass an array of all the files.</maml:para>
+            <maml:para>You can't use this parameter in addition to the DatabaseName parameter.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string[]</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Destination -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="3">
+          <maml:name>Destination</maml:name>
+          <maml:description>
+            <maml:para>Specifies where the image will be stored. The Get-SqlCloneImageLocation cmdlet can be used to get an ImageLocationResource</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">ImageLocationResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageLocationResource</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: BackupPassword -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>BackupPassword</maml:name>
+          <maml:description>
+            <maml:para>Specifies the password for the backup, if the backup is encrypted.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: BufferCount -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>BufferCount</maml:name>
+          <maml:description>
+            <maml:para>Specifies the Buffer Count to be passed to the SQL Server performing the restore when creating an image from backup.</maml:para>
+            <maml:para>This sets the total number of I/O buffers to be used, which may affect performance when creating images.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: CompactImage -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>CompactImage</maml:name>
+          <maml:description>
+            <maml:para>Specifies if the image file should be compacted after modifications.</maml:para>
+            <maml:para>This feature requires the SQL Clone agent machine to be running on Windows 8 / Server 2012 or later.</maml:para>
+            <maml:para>Possible values: None, Compact</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">CompactImageResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.CompactImageResource</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+          <command:parameterValueGroup>
+            <command:parameterValue required="false" variableLength="false">None</command:parameterValue>
+            <command:parameterValue required="false" variableLength="false">Compact</command:parameterValue>
+          </command:parameterValueGroup>
+        </command:parameter>
+        <!-- Parameter: KeepCdc -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>KeepCdc</maml:name>
+          <maml:description>
+            <maml:para>Specifies that the SQL Server performing the restore should retain Change Data Capture tables in the new image when creating an image from backup.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+        <!-- Parameter: MaxTransferSize -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>MaxTransferSize</maml:name>
+          <maml:description>
+            <maml:para>Specifies Max Transfer Size to be passed to the SQL Server performing the restore when creating an image from backup</maml:para>
+            <maml:para>This sets the largest unit of transfer in bytes to be used, which may affect performance when creating images.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Modifications -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Modifications</maml:name>
+          <maml:description>
+            <maml:para>Specifies an ordered sequence of modifications to make to the image database while it is being created. SQL script modifications will run with limited privileges, as a temporary user &amp; login that has db_owner on the image database and VIEW ANY DEFINITION and VIEW SERVER STATE on the server. Masking modifications will be run by Data Masker for SQL Server.</maml:para>
+            <maml:para>See New-SqlCloneSqlScript.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">ModificationScriptResource[]</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.ModificationScriptResource[]</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Teams -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Teams</maml:name>
+          <maml:description>
+            <maml:para>Specifies Existing Teams that can access this image.</maml:para>
+            <maml:para>Any team with the `Include All Images` flag will have access to all images.</maml:para>
+            <maml:para>User must provide a team for the image if the current user doesn't have access to all images.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">TeamResource[]</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.TeamResource[]</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Name -->
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="0">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Specifies the name of the image.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: SqlServerInstance -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="1">
+        <maml:name>SqlServerInstance</maml:name>
+        <maml:description>
+          <maml:para>Specifies the SQL Server instance that the source database is on. The Get-SqlCloneSqlServerInstance cmdlet can be used to get a SqlServerInstanceResource.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">SqlServerInstanceResource</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.SqlServerInstanceResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: DatabaseName -->
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="2">
+        <maml:name>DatabaseName</maml:name>
+        <maml:description>
+          <maml:para>Specifies the name of the database to be used as the source for the image.</maml:para>
+          <maml:para>You can't use this parameter in addition to the BackupFileName parameters.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: BackupFileName -->
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="2">
+        <maml:name>BackupFileName</maml:name>
+        <maml:description>
+          <maml:para>Specifies the backup file path(s). These can be full and/or differential, but not a transaction log backup. If you have striped and/or differential backups, you should pass an array of all the files.</maml:para>
+          <maml:para>You can't use this parameter in addition to the DatabaseName parameter.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string[]</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: BackupPassword -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>BackupPassword</maml:name>
+        <maml:description>
+          <maml:para>Specifies the password for the backup, if the backup is encrypted.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Destination -->
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="3">
+        <maml:name>Destination</maml:name>
+        <maml:description>
+          <maml:para>Specifies where the image will be stored. The Get-SqlCloneImageLocation cmdlet can be used to get an ImageLocationResource</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">ImageLocationResource</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageLocationResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Modifications -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Modifications</maml:name>
+        <maml:description>
+          <maml:para>Specifies an ordered sequence of modifications to make to the image database while it is being created. SQL script modifications will run with limited privileges, as a temporary user &amp; login that has db_owner on the image database and VIEW ANY DEFINITION and VIEW SERVER STATE on the server. Masking modifications will be run by Data Masker for SQL Server.</maml:para>
+          <maml:para>See New-SqlCloneSqlScript.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">ModificationScriptResource[]</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.ModificationScriptResource[]</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: KeepCdc -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>KeepCdc</maml:name>
+        <maml:description>
+          <maml:para>Specifies that the SQL Server performing the restore should retain Change Data Capture tables in the new image when creating an image from backup.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+      <!-- Parameter: BufferCount -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>BufferCount</maml:name>
+        <maml:description>
+          <maml:para>Specifies the Buffer Count to be passed to the SQL Server performing the restore when creating an image from backup.</maml:para>
+          <maml:para>This sets the total number of I/O buffers to be used, which may affect performance when creating images.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: MaxTransferSize -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>MaxTransferSize</maml:name>
+        <maml:description>
+          <maml:para>Specifies Max Transfer Size to be passed to the SQL Server performing the restore when creating an image from backup</maml:para>
+          <maml:para>This sets the largest unit of transfer in bytes to be used, which may affect performance when creating images.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Teams -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Teams</maml:name>
+        <maml:description>
+          <maml:para>Specifies Existing Teams that can access this image.</maml:para>
+          <maml:para>Any team with the `Include All Images` flag will have access to all images.</maml:para>
+          <maml:para>User must provide a team for the image if the current user doesn't have access to all images.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">TeamResource[]</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.TeamResource[]</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: CompactImage -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>CompactImage</maml:name>
+        <maml:description>
+          <maml:para>Specifies if the image file should be compacted after modifications.</maml:para>
+          <maml:para>This feature requires the SQL Clone agent machine to be running on Windows 8 / Server 2012 or later.</maml:para>
+          <maml:para>Possible values: None, Compact</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">CompactImageResource</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.CompactImageResource</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+        <command:parameterValueGroup>
+          <command:parameterValue required="false" variableLength="false">None</command:parameterValue>
+          <command:parameterValue required="false" variableLength="false">Compact</command:parameterValue>
+        </command:parameterValueGroup>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.SqlServerInstanceResource</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the SQL Server instance that the source database is on. The Get-SqlCloneSqlServerInstance cmdlet can be used to get a SqlServerInstanceResource.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <!-- OutputType: OperationResource -->
+      <command:returnValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.OperationResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$SqlServerInstance = Get-SqlCloneSqlServerInstance -MachineName WIN201601 -InstanceName SQL2014
+$ImageDestination = Get-SqlCloneImageLocation -Path '\\red-gate\data-images'
+
+$ImageOperation = New-SqlCloneImage -Name "AdventureWorks-$(Get-Date -Format yyyyMMddHHmmss)" `
+    -SqlServerInstance $SqlServerInstance `
+    -DatabaseName 'AdventureWorks' `
+    -Destination $ImageDestination
+
+Wait-SqlCloneOperation -Operation $ImageOperation</dev:code>
+        <dev:remarks>
+          <maml:para>This example creates a new image from the 'AdventureWorks' database on WIN201601\SQL2014 and saves it under '\\red-gate\data-images' with a timestamp postfix.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 2  ----------</maml:title>
+        <dev:code>Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$SqlServer = Get-SqlCloneSqlServerInstance -MachineName 'WIN201601' -InstanceName 'SQL2016'
+$ImageDestination = Get-SqlCloneImageLocation -Path '\\red-gate\data-images'
+
+$ImageOperation = New-SqlCloneImage -Name "AdventureWorks-$(Get-Date -Format yyyyMMddHHmmss)" `
+    -SqlServerInstance $SqlServer `
+    -BackupFileName @('\\red-gate\backups\AdventureWorks-201701012210.bak') `
+    -Destination $ImageDestination
+
+$ImageOperation | Wait-SqlCloneOperation</dev:code>
+        <dev:remarks>
+          <maml:para>This example creates a new image from the backup file '\\red-gate\backups\AdventureWorks-201701012210.bak' and saves it under '\\red-gate\data-images' with a timestamp postfix.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 3  ----------</maml:title>
+        <dev:code>Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$SqlServer = Get-SqlCloneSqlServerInstance -MachineName 'WIN201601' -InstanceName 'SQL2016'
+$ImageDestination = Get-SqlCloneImageLocation -Path '\\red-gate\data-images'
+
+$ImageOperation = New-SqlCloneImage -Name "Production-$(Get-Date -Format yyyyMMddHHmmss)" `
+    -SqlServerInstance $SqlServer `
+    -BackupFileName @('\\red-gate\backups\Production-201703201042.sqb') `
+    -BackupPassword 'PasswordForSQLBackup' `
+    -Destination $ImageDestination
+
+$ImageOperation | Wait-SqlCloneOperation</dev:code>
+        <dev:remarks>
+          <maml:para>This example creates a new image from the encrypted SQL Backup file '\\red-gate\backups\Production-201703201042.sqb' and saves it under '\\red-gate\data-images' with a timestamp postfix.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 4  ----------</maml:title>
+        <dev:code>Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$SqlServer = Get-SqlCloneSqlServerInstance -MachineName 'WIN201601' -InstanceName 'SQL2016'
+$ImageDestination = Get-SqlCloneImageLocation -Path '\\red-gate\data-images'
+
+$ImageOperation = New-SqlCloneImage -Name 'ImageFromDifferentialBackup' `
+    -SqlServerInstance $SqlServer `
+    -BackupFileName @('\\red-gate\backups\FullBackup.bak', '\\red-gate\backups\DifferentialBackup.bak') `
+    -Destination $ImageDestination
+
+$ImageOperation | Wait-SqlCloneOperation</dev:code>
+        <dev:remarks>
+          <maml:para>This example creates a new image from a differential backup.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 5  ----------</maml:title>
+        <dev:code>Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$SqlServer = Get-SqlCloneSqlServerInstance -MachineName 'WIN201601' -InstanceName 'SQL2016'
+$ImageDestination = Get-SqlCloneImageLocation -Path '\\red-gate\data-images'
+
+$maskingScript = New-SqlCloneSqlScript -Path \\red-gate\data-scripts\mask-emails.sql
+$permissionsScript = New-SqlCloneSqlScript -Path \\red-gate\data-scripts\change-permissions.sql
+
+$ImageOperation = New-SqlCloneImage -Name "AdventureWorks-$(Get-Date -Format yyyyMMddHHmmss)" `
+    -SqlServerInstance $SqlServer `
+    -BackupFileName @('\\red-gate\backups\AdventureWorks-201701012210.bak') `
+    -Destination $ImageDestination `
+    -Modifications @($maskingScript, $permissionsScript)
+
+$ImageOperation | Wait-SqlCloneOperation</dev:code>
+        <dev:remarks>
+          <maml:para>This example creates a new image from a backup file, and runs a pair of SQL scripts (in order) during its creation.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 6  ----------</maml:title>
+        <dev:code>Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$SqlServer = Get-SqlCloneSqlServerInstance -MachineName 'WIN201601' -InstanceName 'SQL2016'
+$ImageDestination = Get-SqlCloneImageLocation -Path '\\red-gate\data-images'
+
+$dropDataScript = New-SqlCloneSqlScript -Path \\red-gate\data-scripts\drop-data.sql
+$shrinkScript = New-SqlCloneSqlScript -Path \\red-gate\data-scripts\shrink.sql
+
+$ImageOperation = New-SqlCloneImage -Name "AdventureWorks-$(Get-Date -Format yyyyMMddHHmmss)" `
+    -SqlServerInstance $SqlServer `
+    -BackupFileName @('\\red-gate\backups\AdventureWorks-201701012210.bak') `
+    -Destination $ImageDestination `
+    -Modifications @($dropDataScript, $shrinkScript) `
+    -CompactImage Compact
+
+$ImageOperation | Wait-SqlCloneOperation</dev:code>
+        <dev:remarks>
+          <maml:para>This example creates a new image from a backup file, and runs a pair of SQL scripts (in order) during its creation.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 7  ----------</maml:title>
+        <dev:code>$OriginalErrorActionPreference = $ErrorActionPreference
+$ErrorActionPreference = "Stop"
+
+Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$SqlServer = Get-SqlCloneSqlServerInstance -MachineName 'WIN201601' -InstanceName 'SQL2016'
+$ImageDestination = Get-SqlCloneImageLocation -Path '\\red-gate\data-images'
+
+$mask = New-SqlCloneMask -Path \\red-gate\masking-sets\production.dmsmaskset
+
+$ImageOperation = New-SqlCloneImage -Name "AdventureWorks-$(Get-Date -Format yyyyMMddHHmmss)" `
+    -SqlServerInstance $SqlServer `
+    -BackupFileName @('\\red-gate\backups\AdventureWorks-201701012210.bak') `
+    -Destination $ImageDestination `
+    -Modifications @($mask)
+
+$ImageOperation | Wait-SqlCloneOperation
+
+$ErrorActionPreference = $OriginalErrorActionPreference</dev:code>
+        <dev:remarks>
+          <maml:para>This example creates a new image from a backup file, and invokes Data Masker with a masking set file to sanitize its data. We can use ErrorActionPreference to halt execution on any error, to make sure the image isn't created if there's a problem.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 8  ----------</maml:title>
+        <dev:code>Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$SqlServerInstance = Get-SqlCloneSqlServerInstance -MachineName WIN201601 -InstanceName SQL2014
+$ImageDestination = Get-SqlCloneImageLocation -Path '\\red-gate\data-images'
+$Teams = Get-SqlCloneTeam | Where-Object { $_.Name -like 'Dev*' }
+$ImageOperation = New-SqlCloneImage -Name "AdventureWorks-$(Get-Date -Format yyyyMMddHHmmss)" `
+    -SqlServerInstance $SqlServerInstance `
+    -DatabaseName 'AdventureWorks' `
+    -Destination $ImageDestination `
+    -Teams $Teams
+
+Wait-SqlCloneOperation -Operation $ImageOperation</dev:code>
+        <dev:remarks>
+          <maml:para>This example creates a new image that can be access by existing teams with names starting with "Dev"</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Remove-SqlCloneImage -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Remove-SqlCloneImage</command:name>
+      <command:verb>Remove</command:verb>
+      <command:noun>SqlCloneImage</command:noun>
+      <maml:description>
+        <maml:para>Starts deleting an image.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Remove-SqlCloneImage cmdlet starts deleting a SQL Clone image and outputs details of the deletion operation.</maml:para>
+      <maml:para>This cmdlet returns a OperationResource which can be passed to the Wait-SqlCloneOperation cmdlet.</maml:para>
+      <maml:para>Any clones of the image must be deleted before the image can be deleted.</maml:para>
+      <maml:para>Connect-SqlClone must be called before this cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Remove-SqlCloneImage</maml:name>
+        <!-- Parameter: Image -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+          <maml:name>Image</maml:name>
+          <maml:description>
+            <maml:para>Specifies the image to delete. The Get-SqlCloneImage cmdlet can be used to get an ImageResource.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">ImageResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageResource</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Soft -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Soft</maml:name>
+          <maml:description>
+            <maml:para>Specifies that the image should be removed from SQL Clone without deleting the underlying image files. This can be useful if the image cannot be deleted normally because the agent that created it is no longer in use.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Image -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+        <maml:name>Image</maml:name>
+        <maml:description>
+          <maml:para>Specifies the image to delete. The Get-SqlCloneImage cmdlet can be used to get an ImageResource.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">ImageResource</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Soft -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Soft</maml:name>
+        <maml:description>
+          <maml:para>Specifies that the image should be removed from SQL Clone without deleting the underlying image files. This can be useful if the image cannot be deleted normally because the agent that created it is no longer in use.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageResource</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the image to delete. The Get-SqlCloneImage cmdlet can be used to get an ImageResource.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <!-- OutputType: OperationResource -->
+      <command:returnValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.OperationResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>$ImageToDelete = Get-SqlCloneImage -Name 'ImageToDelete' 
+Remove-SqlCloneImage -Image $ImageToDelete</dev:code>
+        <dev:remarks>
+          <maml:para>This example deletes an image with the name 'ImageToDelete'.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 2  ----------</maml:title>
+        <dev:code>Get-SqlCloneImage -Name 'ImageToDelete' | Remove-SqlCloneImage | Wait-SqlCloneOperation</dev:code>
+        <dev:remarks>
+          <maml:para>This example uses the pipeline operator to delete the image 'ImageToDelete' and waits for the operation to complete before returning.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Rename-SqlCloneImage -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Rename-SqlCloneImage</command:name>
+      <command:verb>Rename</command:verb>
+      <command:noun>SqlCloneImage</command:noun>
+      <maml:description>
+        <maml:para>Renames an image.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Rename-SqlCloneImage cmdlet renames a SQL Clone image.</maml:para>
+      <maml:para>Connect-SqlClone must be called before this cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Rename-SqlCloneImage</maml:name>
+        <!-- Parameter: Image -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+          <maml:name>Image</maml:name>
+          <maml:description>
+            <maml:para>Specifies the image to rename. The Get-SqlCloneImage cmdlet can be used to get an ImageResource.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">ImageResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageResource</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: NewName -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="1">
+          <maml:name>NewName</maml:name>
+          <maml:description>
+            <maml:para>Specifies the new name of the image.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Image -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+        <maml:name>Image</maml:name>
+        <maml:description>
+          <maml:para>Specifies the image to rename. The Get-SqlCloneImage cmdlet can be used to get an ImageResource.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">ImageResource</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: NewName -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="1">
+        <maml:name>NewName</maml:name>
+        <maml:description>
+          <maml:para>Specifies the new name of the image.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageResource</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the image to rename. The Get-SqlCloneImage cmdlet can be used to get an ImageResource.</maml:para>
+        </maml:description>
+      </command:inputType>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the new name of the image.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues />
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>$ImageToRename = Get-SqlCloneImage -Name 'ImageToRename' 
+Rename-SqlCloneImage -Image $ImageToRename -NewName 'NewName'</dev:code>
+        <dev:remarks>
+          <maml:para>This example renames an image with the name 'ImageToRename' to 'NewName'.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Get-SqlCloneImageLocation -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Get-SqlCloneImageLocation</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>SqlCloneImageLocation</command:noun>
+      <maml:description>
+        <maml:para>Gets image location details from a SQL Clone Server.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Get-SqlCloneImageLocation cmdlet gets details of image locations from a SQL Clone Server.</maml:para>
+      <maml:para>Without parameters, this cmdlet gets details of all image locations. You can specify a particular image by path or use a wildcard filter.</maml:para>
+      <maml:para>This cmdlet returns a ImageLocationResource which can be passed to the New-SqlCloneImage cmdlet for specifying where to store the image.</maml:para>
+      <maml:para>Connect-SqlClone must be called before this cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Get-SqlCloneImageLocation</maml:name>
+        <!-- Parameter: Path -->
+        <command:parameter required="false" globbing="false" pipelineInput="true (ByValue)" position="0">
+          <maml:name>Path</maml:name>
+          <maml:description>
+            <maml:para>The path of the image location. Wildcards are permitted. If no path is specified then details of all existing image locations will be returned.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Path -->
+      <command:parameter required="false" globbing="false" pipelineInput="true (ByValue)" position="0">
+        <maml:name>Path</maml:name>
+        <maml:description>
+          <maml:para>The path of the image location. Wildcards are permitted. If no path is specified then details of all existing image locations will be returned.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>The path of the image location. Wildcards are permitted. If no path is specified then details of all existing image locations will be returned.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <!-- OutputType: ImageLocationResource -->
+      <command:returnValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageLocationResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>Get-SqlCloneImageLocation</dev:code>
+        <dev:remarks>
+          <maml:para>This command gets details of all image locations from a SQL Clone Server.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 2  ----------</maml:title>
+        <dev:code>Get-SqlCloneImageLocation -Path '\\shared-drive\images'</dev:code>
+        <dev:remarks>
+          <maml:para>This command gets details of the image location '\\shared-drive\images' from a SQL Clone Server.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 3  ----------</maml:title>
+        <dev:code>Get-SqlCloneImageLocation -Path '\\shared-drive\*'</dev:code>
+        <dev:remarks>
+          <maml:para>This command gets details of all image locations on '\\shared-drive\' from a SQL Clone Server.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Get-SqlCloneMachine -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Get-SqlCloneMachine</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>SqlCloneMachine</command:noun>
+      <maml:description>
+        <maml:para>Gets machine details from a SQL Clone Server.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Get-SqlCloneMachine cmdlet gets details of machines running SQL Clone Agent associated with a SQL Clone Server.</maml:para>
+      <maml:para>Instances of SQL Server on machines running SQL Clone Agent can be used to create images and receive clones.</maml:para>
+      <maml:para>This cmdlet gets details of all machines.</maml:para>
+      <maml:para>This cmdlet returns an AgentResource.</maml:para>
+      <maml:para>Connect-SqlClone must be called before this cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Get-SqlCloneMachine</maml:name>
+        <!-- Parameter: Name -->
+        <command:parameter required="false" globbing="false" pipelineInput="true (ByValue)" position="0">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>The name of the machine. Wildcards are permitted. If no name is specified then details of all machines will be returned.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Name -->
+      <command:parameter required="false" globbing="false" pipelineInput="true (ByValue)" position="0">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>The name of the machine. Wildcards are permitted. If no name is specified then details of all machines will be returned.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>The name of the machine. Wildcards are permitted. If no name is specified then details of all machines will be returned.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <!-- OutputType: AgentResource -->
+      <command:returnValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.AgentResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>Get-SqlCloneMachine</dev:code>
+        <dev:remarks>
+          <maml:para>This command gets details of all machines from a SQL Clone Server.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 2  ----------</maml:title>
+        <dev:code>Get-SqlCloneMachine -Name 'machine.name'</dev:code>
+        <dev:remarks>
+          <maml:para>This command gets details of the machine 'machine.name' from a SQL Clone Server.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 3  ----------</maml:title>
+        <dev:code>Get-SqlCloneMachine -Name 'dev-*'</dev:code>
+        <dev:remarks>
+          <maml:para>This command gets details of all machine with the prefix 'dev-' from a SQL Clone Server.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Remove-SqlCloneMachine -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Remove-SqlCloneMachine</command:name>
+      <command:verb>Remove</command:verb>
+      <command:noun>SqlCloneMachine</command:noun>
+      <maml:description>
+        <maml:para>Removes a machine registered with SQL Clone.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Remove-SqlCloneMachine cmdlet dissociates an agent machine from a SQL Clone Server.</maml:para>
+      <maml:para>Any clones or images created using this machine must be deleted, and the SQL Clone Agent must be offline, before the machine can be removed.</maml:para>
+      <maml:para>If the machine no longer exists, you can use the -Force parameter to remove the machine from SQL Clone even though there were still clones on the machine.</maml:para>
+      <maml:para>Connect-SqlClone must be called before this cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Remove-SqlCloneMachine</maml:name>
+        <!-- Parameter: Machine -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+          <maml:name>Machine</maml:name>
+          <maml:description>
+            <maml:para>Specifies a machine to remove. The Get-SqlCloneMachine cmdlet can be used to get an AgentResource.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">AgentResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.AgentResource</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Force -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Force</maml:name>
+          <maml:description>
+            <maml:para>Remove the machine even if it still has clones. This must only be used if the machine no longer exists; if the machine still exists, delete the clones first and then remove the machine without -Force.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>False</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Machine -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+        <maml:name>Machine</maml:name>
+        <maml:description>
+          <maml:para>Specifies a machine to remove. The Get-SqlCloneMachine cmdlet can be used to get an AgentResource.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">AgentResource</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.AgentResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Force -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Force</maml:name>
+        <maml:description>
+          <maml:para>Remove the machine even if it still has clones. This must only be used if the machine no longer exists; if the machine still exists, delete the clones first and then remove the machine without -Force.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">SwitchParameter</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Management.Automation.SwitchParameter</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>False</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.AgentResource</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies a machine to remove. The Get-SqlCloneMachine cmdlet can be used to get an AgentResource.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <!-- OutputType: OperationResource -->
+      <command:returnValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.OperationResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>$AgentToDelete = Get-SqlCloneMachine -Name 'machine-name'
+Remove-SqlCloneMachine -Machine $AgentToDelete</dev:code>
+        <dev:remarks>
+          <maml:para>This example removes the machine 'machine-name' from SQL Clone.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Rename-SqlCloneMachine -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Rename-SqlCloneMachine</command:name>
+      <command:verb>Rename</command:verb>
+      <command:noun>SqlCloneMachine</command:noun>
+      <maml:description>
+        <maml:para>Renames a Machine.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Rename-SqlCloneMachine cmdlet gives the machine an alias within SQL Clone.</maml:para>
+      <maml:para>You might want to use this to give a machine a more meaningful name.</maml:para>
+      <maml:para>Connect-SqlClone must be called before this cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Rename-SqlCloneMachine</maml:name>
+        <!-- Parameter: Machine -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+          <maml:name>Machine</maml:name>
+          <maml:description>
+            <maml:para>Specifies the machine to rename. The Get-SqlCloneMachine cmdlet can be used to get an AgentResource.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">AgentResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.AgentResource</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: NewName -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="1">
+          <maml:name>NewName</maml:name>
+          <maml:description>
+            <maml:para>Specifies the new name to be set for the machine.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Machine -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+        <maml:name>Machine</maml:name>
+        <maml:description>
+          <maml:para>Specifies the machine to rename. The Get-SqlCloneMachine cmdlet can be used to get an AgentResource.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">AgentResource</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.AgentResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: NewName -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="1">
+        <maml:name>NewName</maml:name>
+        <maml:description>
+          <maml:para>Specifies the new name to be set for the machine.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.AgentResource</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the machine to rename. The Get-SqlCloneMachine cmdlet can be used to get an AgentResource.</maml:para>
+        </maml:description>
+      </command:inputType>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the new name to be set for the machine.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues />
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>$MachineToRename = Get-SqlCloneMachine -Name 'WM20175123' 
+Rename-SqlCloneMachine -Machine $MachineToRename -NewName 'Production'</dev:code>
+        <dev:remarks>
+          <maml:para>This example renames a Machine with the name 'WM20175123' to 'Production'.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: New-SqlCloneMask -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>New-SqlCloneMask</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>SqlCloneMask</command:noun>
+      <maml:description>
+        <maml:para>Creates an ModificationScriptResource masking modification for consumption by New-SqlCloneImage.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The New-SqlCloneMask cmdlet creates a simple data object containing the details needed for Clone to perform an image masking modification.</maml:para>
+      <maml:para>This cmdlet returns an ModificationScriptResource which can be passed to the New-SqlCloneImage cmdlet's Modifications parameter.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: MaskContent -->
+      <command:syntaxItem>
+        <maml:name>New-SqlCloneMask</maml:name>
+        <!-- Parameter: Content -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="1">
+          <maml:name>Content</maml:name>
+          <maml:description>
+            <maml:para>Specifies the plaintext masking set data to use in this modification.</maml:para>
+            <maml:para>Connection details and credentials in the masking set data will be automatically replaced by Clone.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Name -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Names this modification step for logging and display purposes.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+      <!-- Parameter set: MaskPath -->
+      <command:syntaxItem>
+        <maml:name>New-SqlCloneMask</maml:name>
+        <!-- Parameter: Path -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="1">
+          <maml:name>Path</maml:name>
+          <maml:description>
+            <maml:para>Specifies the path to a masking set file (normally *.DMSMaskSet) to use in this modification.</maml:para>
+            <maml:para>Connection details and credentials in the masking set data will be automatically replaced by Clone.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Name -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Names this modification step for logging and display purposes.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Content -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="1">
+        <maml:name>Content</maml:name>
+        <maml:description>
+          <maml:para>Specifies the plaintext masking set data to use in this modification.</maml:para>
+          <maml:para>Connection details and credentials in the masking set data will be automatically replaced by Clone.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Path -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="1">
+        <maml:name>Path</maml:name>
+        <maml:description>
+          <maml:para>Specifies the path to a masking set file (normally *.DMSMaskSet) to use in this modification.</maml:para>
+          <maml:para>Connection details and credentials in the masking set data will be automatically replaced by Clone.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Name -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Names this modification step for logging and display purposes.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the plaintext masking set data to use in this modification.</maml:para>
+          <maml:para>Connection details and credentials in the masking set data will be automatically replaced by Clone.</maml:para>
+        </maml:description>
+      </command:inputType>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the path to a masking set file (normally *.DMSMaskSet) to use in this modification.</maml:para>
+          <maml:para>Connection details and credentials in the masking set data will be automatically replaced by Clone.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <!-- OutputType: ModificationScriptResource -->
+      <command:returnValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.ModificationScriptResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>$myMaskingModification = New-SqlCloneMask -Path '\\red-gate\data-masking\production.dmsmaskset' -Name 'Production Mask'</dev:code>
+        <dev:remarks>
+          <maml:para>This example creates a masking modification object that can be provided to the -Modifications parameter of New-SqlCloneImage.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Wait-SqlCloneOperation -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Wait-SqlCloneOperation</command:name>
+      <command:verb>Wait</command:verb>
+      <command:noun>SqlCloneOperation</command:noun>
+      <maml:description>
+        <maml:para>Waits for the completion or failure of a SQL Clone operation.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Wait-SqlCloneOperation cmdlet waits for the completion or failure of a SQL Clone operation, such as one returned by the New-SqlClone cmdlet.</maml:para>
+      <maml:para>This cmdlet will return an error if the operation fails or times out.</maml:para>
+      <maml:para>Connect-SqlClone must be called before this cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Wait-SqlCloneOperation</maml:name>
+        <!-- Parameter: Operation -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+          <maml:name>Operation</maml:name>
+          <maml:description>
+            <maml:para>Specifies the SQL Clone operation to wait for.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">OperationResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.OperationResource</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: TimeoutInSeconds -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="1">
+          <maml:name>TimeoutInSeconds</maml:name>
+          <maml:description>
+            <maml:para>Specifies the time to wait, in seconds. If no timeout is specified then the cmdlet will wait until the operation is complete.</maml:para>
+            <maml:para>If this time is exceeded then an error will be returned.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">int</command:parameterValue>
+          <dev:type>
+            <maml:name>System.Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>0</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Operation -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+        <maml:name>Operation</maml:name>
+        <maml:description>
+          <maml:para>Specifies the SQL Clone operation to wait for.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">OperationResource</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.OperationResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: TimeoutInSeconds -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="1">
+        <maml:name>TimeoutInSeconds</maml:name>
+        <maml:description>
+          <maml:para>Specifies the time to wait, in seconds. If no timeout is specified then the cmdlet will wait until the operation is complete.</maml:para>
+          <maml:para>If this time is exceeded then an error will be returned.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">int</command:parameterValue>
+        <dev:type>
+          <maml:name>System.Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>0</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.OperationResource</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the SQL Clone operation to wait for.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <!-- OutputType: None -->
+      <command:returnValue>
+        <dev:type>
+          <maml:name>None</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$Image = Get-SqlCloneImage -Name 'AdventureWorks-20170106110745'
+$SqlServerInstance = Get-SqlCloneSqlServerInstance -MachineName WIN201601 -InstanceName SQL2014
+$CreationOperation = New-SqlClone -Name 'AdventureWorks-clone1' -Location $SqlServerInstance -Image $Image
+
+Wait-SqlCloneOperation -Operation $CreationOperation</dev:code>
+        <dev:remarks>
+          <maml:para>This example waits for the clone creation to complete before returning.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 2  ----------</maml:title>
+        <dev:code>$CloneToDelete = Get-SqlClone -Name 'CloneToDelete'
+Remove-SqlClone -Clone $CloneToDelete | Wait-SqlCloneOperation</dev:code>
+        <dev:remarks>
+          <maml:para>This example uses the pipeline operator to wait for a clone to be deleted.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: New-SqlCloneSqlScript -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>New-SqlCloneSqlScript</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>SqlCloneSqlScript</command:noun>
+      <maml:description>
+        <maml:para>Creates an ModificationScriptResource T-SQL modification for consumption by New-SqlCloneImage.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The New-SqlCloneSqlScript cmdlet creates a simple data object containing the details needed for Clone to perform a T-SQL image modification.</maml:para>
+      <maml:para>This cmdlet returns an ModificationScriptResource which can be passed to the New-SqlCloneImage cmdlet's Modifications parameter.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: ScriptContent -->
+      <command:syntaxItem>
+        <maml:name>New-SqlCloneSqlScript</maml:name>
+        <!-- Parameter: Sql -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="1">
+          <maml:name>Sql</maml:name>
+          <maml:description>
+            <maml:para>Specifies the plaintext T-SQL to run in this modification.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Name -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Names this modification step for logging and display purposes.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+      <!-- Parameter set: ScriptPath -->
+      <command:syntaxItem>
+        <maml:name>New-SqlCloneSqlScript</maml:name>
+        <!-- Parameter: Path -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="1">
+          <maml:name>Path</maml:name>
+          <maml:description>
+            <maml:para>Specifies the path to a file containing T-SQL to run in this modification.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Name -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Names this modification step for logging and display purposes.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Sql -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="1">
+        <maml:name>Sql</maml:name>
+        <maml:description>
+          <maml:para>Specifies the plaintext T-SQL to run in this modification.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Path -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="1">
+        <maml:name>Path</maml:name>
+        <maml:description>
+          <maml:para>Specifies the path to a file containing T-SQL to run in this modification.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Name -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Names this modification step for logging and display purposes.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the plaintext T-SQL to run in this modification.</maml:para>
+        </maml:description>
+      </command:inputType>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the path to a file containing T-SQL to run in this modification.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <!-- OutputType: ModificationScriptResource -->
+      <command:returnValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.ModificationScriptResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>$myModification = New-SqlCloneSqlScript -Path '\\red-gate\data-scripts\change-permissions.sql' -Name 'Change Permissions'</dev:code>
+        <dev:remarks>
+          <maml:para>This example creates a T-SQL modification object that can be provided to the -Modifications parameter of New-SqlCloneImage or as part of a template with New-SqlCloneTemplate.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Get-SqlCloneSqlServerInstance -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Get-SqlCloneSqlServerInstance</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>SqlCloneSqlServerInstance</command:noun>
+      <maml:description>
+        <maml:para>Gets SQL Server instance details from a SQL Clone Server.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Get-SqlCloneSqlServerInstance cmdlet gets details of SQL Server instances from a SQL Clone Server.</maml:para>
+      <maml:para>Without parameters, this cmdlet gets details of all SQL Server instances. You can specify a particular instance by machine or instance name or use a wildcard filter.</maml:para>
+      <maml:para>This cmdlet returns a SqlServerInstanceResource which can be passed to the New-SqlClone and New-SqlCloneImage cmdlets.</maml:para>
+      <maml:para>Connect-SqlClone must be called before this cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Get-SqlCloneSqlServerInstance</maml:name>
+        <!-- Parameter: MachineName -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="0">
+          <maml:name>MachineName</maml:name>
+          <maml:description>
+            <maml:para>Specifies the machine name of the SQL Server instance. Wildcards are permitted.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: InstanceName -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="1">
+          <maml:name>InstanceName</maml:name>
+          <maml:description>
+            <maml:para>Specifies the instance name of the SQL Server instance. Wildcards are permitted.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: MachineName -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="0">
+        <maml:name>MachineName</maml:name>
+        <maml:description>
+          <maml:para>Specifies the machine name of the SQL Server instance. Wildcards are permitted.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: InstanceName -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="1">
+        <maml:name>InstanceName</maml:name>
+        <maml:description>
+          <maml:para>Specifies the instance name of the SQL Server instance. Wildcards are permitted.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes />
+    <command:returnValues>
+      <!-- OutputType: SqlServerInstanceResource -->
+      <command:returnValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.SqlServerInstanceResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>Get-SqlCloneSqlServerInstance</dev:code>
+        <dev:remarks>
+          <maml:para>This command gets details of all SQL Server instances from a SQL Clone Server.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 2  ----------</maml:title>
+        <dev:code>Get-SqlCloneSqlServerInstance -MachineName TESTMACHINE -InstanceName SQL2014</dev:code>
+        <dev:remarks>
+          <maml:para>This command gets details of the SQL Server instance TESTMACHINE\SQL2014.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 3  ----------</maml:title>
+        <dev:code>Get-SqlCloneSqlServerInstance -MachineName TESTMACHINE -InstanceName ''</dev:code>
+        <dev:remarks>
+          <maml:para>This command gets details of the default SQL Server instance on TESTMACHINE.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 4  ----------</maml:title>
+        <dev:code>Get-SqlCloneSqlServerInstance -InstanceName 'SQL2014'</dev:code>
+        <dev:remarks>
+          <maml:para>This command gets details of all SQL Server instances named 'SQL2014' on any machine.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Get-SqlCloneTeam -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Get-SqlCloneTeam</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>SqlCloneTeam</command:noun>
+      <maml:description>
+        <maml:para>Gets teams from a SQL Clone Server.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>This cmdlet returns a TeamResource which can be passed to the New-SqlCloneImage cmdlet's Teams parameter.</maml:para>
+      <maml:para>The Get-SqlCloneTeam cmdlet gets teams that are available to the current user.</maml:para>
+      <maml:para>Connect-SqlClone must be called before this cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Get-SqlCloneTeam</maml:name>
+        <!-- Parameter: Name -->
+        <command:parameter required="false" globbing="false" pipelineInput="true (ByValue)" position="0">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>The name of the team to get. If no name is specified then all teams that the current user is in will be returned.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Name -->
+      <command:parameter required="false" globbing="false" pipelineInput="true (ByValue)" position="0">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>The name of the team to get. If no name is specified then all teams that the current user is in will be returned.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>The name of the team to get. If no name is specified then all teams that the current user is in will be returned.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <!-- OutputType: TeamResource -->
+      <command:returnValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.TeamResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>Get-SqlCloneTeam</dev:code>
+        <dev:remarks>
+          <maml:para>This command gets all teams from the server.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 2  ----------</maml:title>
+        <dev:code>Get-SqlCloneTeam -Name 'Team 1'</dev:code>
+        <dev:remarks>
+          <maml:para>This command gets the team 'Team 1' from a SQL Clone Server.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 3  ----------</maml:title>
+        <dev:code>Get-SqlCloneTeam | Where-Object { $_.Name -like 'Dev*' }</dev:code>
+        <dev:remarks>
+          <maml:para>This command gets all existing teams then filtered with names starting with "Dev"</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Get-SqlCloneTemplate -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Get-SqlCloneTemplate</command:name>
+      <command:verb>Get</command:verb>
+      <command:noun>SqlCloneTemplate</command:noun>
+      <maml:description>
+        <maml:para>Gets clone templates of an image from a SQL Clone Server.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Get-SqlCloneTemplate cmdlet gets details of clone templates of given image</maml:para>
+      <maml:para>Without passing Name parameter, this cmdlet gets details of all clone templates of given image.</maml:para>
+      <maml:para>By passing Name parameter, this cmdlet gets details of all clone templates of given image.</maml:para>
+      <maml:para>This cmdlet returns CloneTemplateResource which can be passed to the New-SqlClone cmdlet.</maml:para>
+      <maml:para>Connect-SqlClone must be called before this cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Get-SqlCloneTemplate</maml:name>
+        <!-- Parameter: Image -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+          <maml:name>Image</maml:name>
+          <maml:description>
+            <maml:para>Specifies the parent image that has clone template. The Get-SqlCloneImage cmdlet can be used to get an ImageResource.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">ImageResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageResource</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Name -->
+        <command:parameter required="false" globbing="false" pipelineInput="false" position="1">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Specifies the name of the clone template. Wildcards are permitted.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Image -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+        <maml:name>Image</maml:name>
+        <maml:description>
+          <maml:para>Specifies the parent image that has clone template. The Get-SqlCloneImage cmdlet can be used to get an ImageResource.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">ImageResource</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Name -->
+      <command:parameter required="false" globbing="false" pipelineInput="false" position="1">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Specifies the name of the clone template. Wildcards are permitted.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageResource</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the parent image that has clone template. The Get-SqlCloneImage cmdlet can be used to get an ImageResource.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <!-- OutputType: CloneTemplateResource -->
+      <command:returnValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.CloneTemplateResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$Image = Get-SqlCloneImage -Name 'AdventureWorks-20170106110745'
+Get-SqlCloneTemplate -Image $Image</dev:code>
+        <dev:remarks>
+          <maml:para>This example gets details of all clone template of the image named 'AdventureWorks-20170106110745' from a SQL Clone Server.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 2  ----------</maml:title>
+        <dev:code>Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$Image = Get-SqlCloneImage -Name 'AdventureWorks-20170106110745'
+Get-SqlCloneTemplate -Image $Image -Name 'MyCloneTemplate'</dev:code>
+        <dev:remarks>
+          <maml:para>This example gets details of clone template named 'MyCloneTemplate' of the image named 'AdventureWorks-20170106110745' from a SQL Clone Server.</maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------  EXAMPLE 3  ----------</maml:title>
+        <dev:code>Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$Image = Get-SqlCloneImage -Name 'AdventureWorks-20170106110745'
+Get-SqlCloneTemplate -Image $Image -Name 'dev-*'</dev:code>
+        <dev:remarks>
+          <maml:para>This example gets details of all clone templates with the prefix 'dev-' of the image named 'AdventureWorks-20170106110745' from a SQL Clone Server.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: New-SqlCloneTemplate -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>New-SqlCloneTemplate</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>SqlCloneTemplate</command:noun>
+      <maml:description>
+        <maml:para>Creates a new clone template for an image.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The New-SqlCloneTemplate cmdlet creates a template for an image which can be run while creating a new clone from that image.</maml:para>
+      <maml:para>This cmdlet returns a CloneTemplateResource which can be passed to the New-SqlClone cmdlet.</maml:para>
+      <maml:para>Connect-SqlClone must be called before this cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>New-SqlCloneTemplate</maml:name>
+        <!-- Parameter: Image -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+          <maml:name>Image</maml:name>
+          <maml:description>
+            <maml:para>Specifies the parent image that will have the clone template. The Get-SqlCloneImage cmdlet can be used to get an ImageResource.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">ImageResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageResource</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Name -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="1">
+          <maml:name>Name</maml:name>
+          <maml:description>
+            <maml:para>Specifies name of the template</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">string</command:parameterValue>
+          <dev:type>
+            <maml:name>System.String</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+        <!-- Parameter: Modifications -->
+        <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+          <maml:name>Modifications</maml:name>
+          <maml:description>
+            <maml:para>Specifies an ordered sequence of modifications to make to the clone database while it is being created. SQL script modifications will run with limited privileges, as a temporary user &amp; login that has db_owner on the image database, and VIEW SERVER STATE and VIEW ANY DEFINITION on the server.</maml:para>
+            <maml:para>See New-SqlCloneSqlScript.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">ModificationScriptResource[]</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.ModificationScriptResource[]</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: Image -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+        <maml:name>Image</maml:name>
+        <maml:description>
+          <maml:para>Specifies the parent image that will have the clone template. The Get-SqlCloneImage cmdlet can be used to get an ImageResource.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">ImageResource</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Name -->
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="1">
+        <maml:name>Name</maml:name>
+        <maml:description>
+          <maml:para>Specifies name of the template</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">string</command:parameterValue>
+        <dev:type>
+          <maml:name>System.String</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+      <!-- Parameter: Modifications -->
+      <command:parameter required="true" globbing="false" pipelineInput="false" position="named">
+        <maml:name>Modifications</maml:name>
+        <maml:description>
+          <maml:para>Specifies an ordered sequence of modifications to make to the clone database while it is being created. SQL script modifications will run with limited privileges, as a temporary user &amp; login that has db_owner on the image database, and VIEW SERVER STATE and VIEW ANY DEFINITION on the server.</maml:para>
+          <maml:para>See New-SqlCloneSqlScript.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">ModificationScriptResource[]</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.ModificationScriptResource[]</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.ImageResource</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the parent image that will have the clone template. The Get-SqlCloneImage cmdlet can be used to get an ImageResource.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <!-- OutputType: CloneTemplateResource -->
+      <command:returnValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.CloneTemplateResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:returnValue>
+    </command:returnValues>
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$Image = Get-SqlCloneImage -Name 'AdventureWorks-20170106110745'
+New-SqlCloneTemplate -Name 'MyCloneTemplate' -Image $Image -Modifications ((New-SqlCloneSqlScript -Path '\\red-gate\data-scripts\change-permissions.sql'), (New-SqlCloneSqlScript -Sql 'some sql script'))</dev:code>
+        <dev:remarks>
+          <maml:para>This example creates a new clone template named 'MyCloneTemplate' for the image named 'AdventureWorks-20170106110745'.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+  <!-- Cmdlet: Remove-SqlCloneTemplate -->
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10">
+    <command:details>
+      <command:name>Remove-SqlCloneTemplate</command:name>
+      <command:verb>Remove</command:verb>
+      <command:noun>SqlCloneTemplate</command:noun>
+      <maml:description>
+        <maml:para>Deletes a clone templates of an image.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The Remove-SqlCloneTemplate cmdlet deletes a clone template of given image.</maml:para>
+      <maml:para>Connect-SqlClone must be called before this cmdlet.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <!-- Parameter set: __AllParameterSets -->
+      <command:syntaxItem>
+        <maml:name>Remove-SqlCloneTemplate</maml:name>
+        <!-- Parameter: CloneTemplate -->
+        <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+          <maml:name>CloneTemplate</maml:name>
+          <maml:description>
+            <maml:para>Specifies the clone template to delete. The Get-SqlCloneTemplate cmdlet can be used to get a CloneTemplateResource.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true">CloneTemplateResource</command:parameterValue>
+          <dev:type>
+            <maml:name>RedGate.SqlClone.Client.Api.Objects.CloneTemplateResource</maml:name>
+            <maml:uri />
+          </dev:type>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <!-- Parameter: CloneTemplate -->
+      <command:parameter required="true" globbing="false" pipelineInput="true (ByValue)" position="0">
+        <maml:name>CloneTemplate</maml:name>
+        <maml:description>
+          <maml:para>Specifies the clone template to delete. The Get-SqlCloneTemplate cmdlet can be used to get a CloneTemplateResource.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true">CloneTemplateResource</command:parameterValue>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.CloneTemplateResource</maml:name>
+          <maml:uri />
+        </dev:type>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>RedGate.SqlClone.Client.Api.Objects.CloneTemplateResource</maml:name>
+          <maml:uri />
+        </dev:type>
+        <maml:description>
+          <maml:para>Specifies the clone template to delete. The Get-SqlCloneTemplate cmdlet can be used to get a CloneTemplateResource.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues />
+    <command:examples>
+      <command:example>
+        <maml:title>----------  EXAMPLE 1  ----------</maml:title>
+        <dev:code>Connect-SqlClone -ServerUrl 'http://sql-clone.example.com:14145'
+$Image = Get-SqlCloneImage -Name 'AdventureWorks-20170106110745'
+$CloneTemplate = Get-SqlCloneTemplate -Image $Image -Name 'MyCloneTemplat2';
+Remove-SqlCloneTemplate -CloneTemplate $CloneTemplate</dev:code>
+        <dev:remarks>
+          <maml:para>This example deletes the clone template named 'MyCloneTemplate' for the image named 'AdventureWorks-20170106110745'.</maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
+  </command:command>
+</helpItems>
