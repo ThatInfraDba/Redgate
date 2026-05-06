@@ -7,7 +7,7 @@ Description:
 This script generates an insert script to migrate custom metrics and related alert configurations from one Redgate Monitor Base Monitor database to another. 
 It extracts data from various configuration tables, formats it into VALUES clauses for INSERT statements, 
 and assembles a complete script that can be executed on the target database to recreate the custom metrics and alert configurations.
-Custom Metrics that were assigned to specific groups will be assigned to the "All instances" group in the target database, as groups might not match between source and target.
+Custom Metrics that were assigned to specific groups will be assigned to the "All servers" instances group in the target database, as groups might not match between source and target.
 
 Readme:
 - Run this on the SOURCE database to generate an insert script for the TARGET database.
